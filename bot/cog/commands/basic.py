@@ -21,7 +21,7 @@ class Basic(commands.Cog, name="basic commands"):
         while True:
             try:
                 reaction, user = await self.bot.wait_for('reaction_add',
-                                                         timeout=5.0,
+                                                         timeout=60,
                                                          check=check)
             except asyncio.TimeoutError:
                 await msg.clear_reactions()

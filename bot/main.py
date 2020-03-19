@@ -14,7 +14,7 @@ handler.setFormatter(logging.Formatter('%(asctime)s:\
                                         %(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
-bot = commands.Bot(command_prefix='&')
+bot = commands.Bot(command_prefix='[')
 
 
 @bot.listen()

@@ -7,7 +7,7 @@ class SqliteConnect(object):
     if no gulid id then create table
     | userid | timestamp | emojiid |
     """
-    def __init__(self, path='../bot/data/emoji.db'):
+    def __init__(self, path='../data/emoji.db'):
         self.conn = sqlite3.connect(path)
 
     def __enter__(self):
@@ -21,4 +21,7 @@ class SqliteConnect(object):
 
 if __name__ == "__main__":
     with SqliteConnect() as session:
-        print('s')
+        res = session.execute("SELECT emoji_id\
+                               FROM `452726035138740256`\
+                               WHERE emoji_id = 'e';")
+        print(res.fetchone())

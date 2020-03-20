@@ -4,3 +4,4 @@ env/
 .env
 discord.log
 emoji.db
+test.py

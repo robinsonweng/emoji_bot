@@ -1,6 +1,7 @@
 import discord
 import asyncio
 from discord.ext import commands
+from classes.bully import random_failed
 
 
 class Basic(commands.Cog, name="basic commands"):
@@ -37,12 +38,14 @@ class Basic(commands.Cog, name="basic commands"):
                         await msg.edit(embed=pages[i])
 
     @commands.command()
+    @commands.check(random_failed)
     async def ping(self, ctx):
         """目前網路品質
         """
         await ctx.send(f'延遲: {self.bot.latency*1000}ms')
 
     @commands.command()
+    @commands.check(random_failed)
     async def embed(self, ctx):
         """翻頁訊息測試
         """

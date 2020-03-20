@@ -52,6 +52,11 @@ class EventHandler(commands.Cog, name="handling event"):
                                 VALUES ({user_id}, {reaction.emoji.id})')
         print(f'reaction: {reaction.emoji}')
 
+    @commands.Cog.listener()
+    async def on_command(self, ctx):
+        if ctx.author.id == 213539811900784640:
+            pass
+
 
 def setup(bot):
     bot.add_cog(EventHandler(bot))

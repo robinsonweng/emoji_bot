@@ -20,8 +20,8 @@ class SqliteConnect(object):
 
 
 if __name__ == "__main__":
-    with SqliteConnect() as session:
-        res = session.execute("SELECT emoji_id\
+    with SqliteConnect("../../data/emoji.db") as session:
+        res = session.execute("SELECT COUNT(*)\
                                FROM `452726035138740256`\
-                               WHERE emoji_id = 'e';")
-        print(res.fetchone())
+                               WHERE emoji_id = 'e1';")
+        print(res.fetchone()[0])

@@ -40,8 +40,13 @@ class EventHandler(commands.Cog, name="handling event"):
             return
 
         guild_emoji = [e.id for e in user.guild.emojis]
-        if reaction.emoji.id not in guild_emoji:
-            print(f'{reaction.emoji} not in guild {reaction.message.guild}')
+        try:
+            if reaction.emoji.id not in guild_emoji:
+                print(
+                    f'{reaction.emoji} not in guild {reaction.message.guild}'
+                )
+                return
+        except AttributeError:
             return
 
         guild_id = user.guild.id

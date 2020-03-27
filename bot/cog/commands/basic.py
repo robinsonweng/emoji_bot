@@ -88,10 +88,17 @@ class Basic(commands.Cog, name="basic commands"):
                     if v is None:
                         v = 0
                     desrip += f'{i+1}. {p}: 共{v}票\n'
+
+                    voter = ctx.author.nick
+                    url = ctx.author.avatar_url
                 embed = discord.Embed(
                     title=f'{topic}: 投票結果',
                     description=f'{desrip}',
                     colour=discord.Colour.red()
+                )
+                embed.set_footer(
+                    text=f'by {voter} | 投票結果',
+                    icon_url=f'{url}'
                 )
                 await msg.edit(embed=embed)
                 break

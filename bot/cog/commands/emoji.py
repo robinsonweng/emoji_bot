@@ -14,7 +14,7 @@ class Emoji(commands.Cog, name="for emoji caculating"):
     async def emoji(self, ctx, types=None, option=None, page=None):
         """emoji satistic\n   emoji <type> <option> <pages>
         """
-        if types is None:
+        if (types is None) or (option is None):
             url = self.bot.get_user(323429669464571905).avatar_url
             em = discord.Embed(
                 title=f'指令用法:',

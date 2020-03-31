@@ -46,7 +46,7 @@ class Basic(commands.Cog, name="basic commands"):
     async def vote(self, ctx, topic, *option):
         """command for multi option vote
         """
-        if len(option) > 10:
+        if len(option) >= 10:
             await ctx.send('超出投票種類上限!')
 
         des = ''
@@ -72,7 +72,7 @@ class Basic(commands.Cog, name="basic commands"):
             await msg.add_reaction(num_emoji[i])
 
         def check(reaction, user):
-            if not user.bot and reaction.emoji in num_emoji:
+            if not user.bot and reaction.emoji in num_emoji[:i+1]:
                 return True
 
         amount = dict.fromkeys(num_emoji[:i+1])
@@ -89,7 +89,11 @@ class Basic(commands.Cog, name="basic commands"):
                         v = 0
                     desrip += f'{i+1}. {p}: 共{v}票\n'
 
-                    voter = ctx.author.nick
+                    if ctx.author.nick:
+                        voter = ctx.author.nick
+                    else:
+                        voter = ctx.author.name
+
                     url = ctx.author.avatar_url
                 embed = discord.Embed(
                     title=f'{topic}: 投票結果',

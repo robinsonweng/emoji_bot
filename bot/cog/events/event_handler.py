@@ -26,7 +26,7 @@ class EventHandler(commands.Cog, name="handling event"):
             if emo not in guild_emo:
                 print(f'emoji: {emo} not in guild')
             # add emoji by guild id
-            with sqlite_conn() as session:
+            with db_connect() as session:
                 session.execute(f'INSERT INTO `{guild_id}`(user_id, emoji_id)\
                                   VALUES ({user_id},{emo})')
             print(f"msg: {emo}")

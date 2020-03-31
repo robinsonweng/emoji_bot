@@ -43,11 +43,16 @@ class Basic(commands.Cog, name="basic commands"):
 
     @commands.command()
     # @commands.check(random_failed)
-    async def vote(self, ctx, topic, *option):
+    async def vote(self, ctx, topic, *option, time=60):
         """command for multi option vote
         """
         if len(option) >= 10:
             await ctx.send('超出投票種類上限!')
+
+        try:
+            time = int(time)
+        except ValueError:
+            await ctx.send('時間必須為整數!')
 
         des = ''
         for i, p in enumerate(option):
@@ -80,7 +85,7 @@ class Basic(commands.Cog, name="basic commands"):
         while True:
             try:
                 reaction, user = await self.bot.wait_for('reaction_add',
-                                                         timeout=2,
+                                                         timeout=time,
                                                          check=check)
             except asyncio.TimeoutError:
                 desrip = ""

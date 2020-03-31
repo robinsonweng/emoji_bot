@@ -2,7 +2,6 @@ import os
 import logging
 from discord.ext import commands
 from dotenv import load_dotenv
-from classes.database import SqliteConnect as db_connect
 
 
 logger = logging.getLogger('discord')

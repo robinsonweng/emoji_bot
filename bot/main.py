@@ -21,13 +21,6 @@ bot = commands.Bot(command_prefix='[')
 async def on_ready():
     print('join guild:')
     for g in bot.guilds:
-        with db_connect() as session:
-            session.execute(f"CREATE TABLE IF NOT EXISTS `{g.id}` \
-                              (user_id int,\
-                              timestmp DATETIME DEFAULT\
-                              (datetime('now','localtime')),\
-                              emoji_id int)")
-
         print(f'伺服器: {g}, ID: {g.id}', end='')
     print("\n")
 

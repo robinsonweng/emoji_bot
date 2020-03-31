@@ -1,6 +1,6 @@
 import re
 from discord.ext import commands
-from classes.database import SqliteConnect as sqlite_conn
+from classes.database import SqliteConnect as db_connect
 
 
 class EventHandler(commands.Cog, name="handling event"):
@@ -52,15 +52,19 @@ class EventHandler(commands.Cog, name="handling event"):
         guild_id = user.guild.id
         user_id = user.id
 
-        with sqlite_conn() as session:
+        with db_connect() as session:
             session.execute(f'INSERT INTO `{guild_id}`(user_id, emoji_id)\
                                 VALUES ({user_id}, {reaction.emoji.id})')
         print(f'reaction: {reaction.emoji}')
 
     @commands.Cog.listener()
-    async def on_command(self, ctx):
-        if ctx.author.id == 213539811900784640:
-            pass
+    async def on_group_join(channel, user):
+        with db_connect() as session:
+            session.execute(f"CREATE TABLE IF NOT EXISTS `{channel.guild.id}` \
+                                (user_id int,\
+                                timestmp DATETIME DEFAULT\
+                                (datetime('now','localtime')),\
+                                emoji_id int)")
 
 
 def setup(bot):

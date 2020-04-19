@@ -61,10 +61,10 @@ class EventHandler(commands.Cog, name="handling event"):
     async def on_group_join(channel, user):
         with db_connect() as session:
             session.execute(f"CREATE TABLE IF NOT EXISTS `{channel.guild.id}` \
-                                (user_id int,\
-                                timestmp DATETIME DEFAULT\
-                                (datetime('now','localtime')),\
-                                emoji_id int)")
+                              (user_id int,\
+                              timestmp DATETIME DEFAULT\
+                              (datetime('now','localtime')),\
+                              emoji_id int)")
 
 
 def setup(bot):

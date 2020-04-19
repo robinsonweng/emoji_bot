@@ -42,7 +42,7 @@ class Basic(commands.Cog, name="basic commands"):
         await page_swich(self, ctx, pages)
 
     @commands.command()
-    # @commands.check(random_failed)
+    @commands.check(random_failed)
     async def vote(self, ctx, topic, *option, time=60):
         """command for multi option vote
         """

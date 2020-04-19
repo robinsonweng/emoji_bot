@@ -1,4 +1,5 @@
 import discord
+import re
 from classes.bully import random_failed
 from classes.page import page_swich
 from classes.database import SqliteConnect as dbconnect
@@ -101,6 +102,55 @@ class Emoji(commands.Cog, name="for emoji caculating"):
                         text=f'by ひがし#9901 | 第{i+1}/{p_num}頁',
                         icon_url=f'{url}'))
                 await page_swich(self, ctx, embeds, 180)
+
+    @commands.command()
+    # @commands.check(random_failed)
+    async def peek(self, ctx, peek_user=None, options=None):
+        """show other user's emoji usage
+        """
+        if peek_user:
+            guild_id = ctx.guild.id
+            peek_uid = peek_user.replace("<@!", "").replace(">", "")
+            if len(peek_uid) != 18:
+                await ctx.send("一次只能來一個辣")
+            if options == "emoji":
+                with dbconnect() as session:
+                    res = session.execute(f"\
+                        SELECT emoji_id, count(*) as 'CNT'\
+                        FROM `{guild_id}`\
+                        WHERE user_id = '{peek_uid}'\
+                        GROUP BY emoji_id\
+                    ")
+
+                    for i, emoji in enumerate(res):
+                        if i > 9:
+                            break
+                        context = f'表情符號: {emoji[0]}, 使用數量: {emoji[1]}\n'
+
+                    peek_username = self.bot.get_user(int(peek_uid)).name
+                    if ctx.author.nick:
+                        author = ctx.author.nick
+                    else:
+                        author = ctx.author.name
+                    author_url = ctx.author.avatar_url
+                    embed = discord.Embed(
+                        title=f'被偷窺的人是 {peek_username}',
+                        description=f'{context}',
+                        colour=discord.Colour.orange()
+                    ).set_footer(
+                        text=f'by {author}',
+                        icon_url=f'{author_url}'
+                    )
+                    await ctx.send(embed=embed)
+        else:
+            await ctx.send("給拎北打字")
+
+    @commands.command()
+    # @commands.check(random_failed)
+    async def website(self, ctx):
+        """show a link to emoji analyze website
+        """
+        pass
 
 
 def setup(bot):

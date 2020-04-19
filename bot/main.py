@@ -20,8 +20,8 @@ bot = commands.Bot(command_prefix='[')
 async def on_ready():
     print('join guild:')
     for g in bot.guilds:
-        print(f'伺服器: {g}, ID: {g.id}', end='')
-    print("\n")
+        print(f'伺服器: {g}, ID: {g.id}')
+
 
 # load all extension
 files = ['commands', 'events']

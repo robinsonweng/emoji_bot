@@ -10,7 +10,7 @@ class Emoji(commands.Cog, name="for emoji caculating"):
         self.bot = bot
 
     @commands.command()
-    # @commands.check(random_failed)
+    @commands.check(random_failed)
     async def emoji(self, ctx, types=None, option=None, page=None):
         """emoji satistic\n   emoji <type> <option> <pages>
         """
